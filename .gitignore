@@ -1,0 +1,44 @@
+# ===== Java =====
+*.class
+*.log
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# ===== 빌드 결과물 =====
+target/
+build/
+out/
+bin/
+
+# ===== Gradle =====
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# ===== Maven =====
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ===== IDE: IntelliJ IDEA =====
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ===== IDE: Eclipse =====
+.classpath
+.project
+.settings/
+
+# ===== IDE: VS Code =====
+.vscode/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
