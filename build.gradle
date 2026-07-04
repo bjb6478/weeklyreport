@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.4'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.proten'
+version = '0.0.1-SNAPSHOT'
+description = 'Weekly Report Management REST API'
+
+java {
+    // Java 17 바이트코드로 컴파일 (설치된 JDK가 25여도 17 타겟)
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Web (REST API)
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Spring Data JPA (ORM / Repository)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Bean Validation (@Valid, @NotNull ...)
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Lombok (보일러플레이트 축소)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // H2 개발용 인메모리 DB
+    runtimeOnly 'com.h2database:h2'
+
+    // 테스트
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// 진짜 Java 17 API 만 사용하도록 강제
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
