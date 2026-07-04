@@ -13,6 +13,17 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
+// 이 프로젝트 경로에는 두 가지 제약이 있다.
+//  1) OneDrive 동기화 폴더 안이라 기본 build/ 를 쓰면 OneDrive 가 산출물을 잠가
+//     clean/rebuild 시 "Unable to delete" 오류가 난다.
+//  2) 사용자명(홈 경로)에 한글이 들어가 Gradle 테스트 워커가 클래스패스를 못 읽는다.
+// 두 문제를 동시에 피하려고, Windows 에서는 빌드 출력을 한글이 없고 OneDrive 도
+// 건드리지 않는 C:\Users\Public 아래로 돌린다. (PUBLIC 이 없는 환경은 기본 build/)
+def publicHome = System.getenv('PUBLIC')
+if (publicHome) {
+    layout.buildDirectory = file("${publicHome}/gradle-builds/${rootProject.name}")
+}
+
 repositories {
     mavenCentral()
 }
