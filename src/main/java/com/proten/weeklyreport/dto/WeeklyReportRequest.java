@@ -1,6 +1,7 @@
 package com.proten.weeklyreport.dto;
 
 import com.proten.weeklyreport.entity.WeeklyReport;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -21,23 +22,36 @@ import lombok.Setter;
 @NoArgsConstructor
 public class WeeklyReportRequest {
 
+    @Schema(description = "부서", example = "개발팀", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "부서는 필수입니다.")
     private String department;
 
+    @Schema(description = "성명", example = "배정빈", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "성명은 필수입니다.")
     private String name;
 
+    @Schema(description = "보고 시작일", example = "2026-06-29", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "보고 시작일은 필수입니다.")
     private LocalDate periodStart;
 
+    @Schema(description = "보고 종료일", example = "2026-07-03", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "보고 종료일은 필수입니다.")
     private LocalDate periodEnd;
 
     // 아래 긴 텍스트 항목들은 선택 입력
+    @Schema(description = "금주 실적", example = "주간보고 API 구현 완료")
     private String accomplishments;
+
+    @Schema(description = "차주 계획", example = "테스트 코드 작성")
     private String nextWeekPlan;
+
+    @Schema(description = "이슈사항", example = "없음")
     private String issues;
+
+    @Schema(description = "프로젝트", example = "weeklyreport")
     private String project;
+
+    @Schema(description = "비고", example = "-")
     private String remarks;
 
     /** 요청 DTO -> 새 엔티티로 변환 (등록 시 사용) */
