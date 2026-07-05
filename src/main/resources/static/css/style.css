@@ -193,3 +193,97 @@ h1 {
         flex-direction: column;
     }
 }
+
+/* ===== 스프레드시트 보기 ===== */
+.container-wide {
+    max-width: 1400px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.sheet-hint {
+    font-size: 13px;
+    color: #888;
+    margin: 0 0 10px;
+}
+
+.sheet-scroll {
+    overflow-x: auto;
+}
+
+.week-col {
+    white-space: nowrap;
+}
+
+.sheet-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+}
+
+.sheet-table th,
+.sheet-table td {
+    border: 1px solid #b9c0c9;
+    padding: 7px 9px;
+    text-align: left;
+    vertical-align: top;
+    white-space: pre-wrap;
+}
+
+.sheet-table thead th {
+    background: #eef1f5;
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* 세로 병합 셀 (부서/성명/보고기간/비고) */
+.rowspan-cell {
+    background: #fbfcfd;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: 500;
+}
+
+.period-cell {
+    white-space: nowrap;
+}
+
+.item-label {
+    font-weight: 600;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* 항목별 배경색 */
+.item-acc {
+    background: #eaf2fe; /* 금주 실적 - 파랑 */
+}
+
+.item-plan {
+    background: #e9f8ef; /* 차주 계획 - 초록 */
+}
+
+.item-issue {
+    background: #fef8e3; /* 이슈사항 - 노랑 */
+}
+
+.item-project {
+    background: #f0f1f3; /* 프로젝트 - 회색 */
+}
+
+/* 셀 안의 링크: 셀 전체를 클릭 영역으로 */
+.sheet-table td a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    min-height: 1em;
+}
+
+.sheet-table td a:hover {
+    text-decoration: underline;
+}

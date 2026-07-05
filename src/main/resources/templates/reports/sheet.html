@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주간보고 시트 보기</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container container-wide">
+    <div class="header">
+        <h1>주간보고 시트 보기</h1>
+        <div class="header-actions">
+            <a class="btn" th:href="@{/reports}">목록 보기</a>
+            <a class="btn btn-primary" th:href="@{/reports/new}">+ 새 보고</a>
+        </div>
+    </div>
+
+    <p class="sheet-hint">각 셀을 클릭하면 해당 보고의 수정 화면으로 이동합니다.</p>
+
+    <div class="sheet-scroll">
+        <table class="sheet-table">
+            <thead>
+            <tr>
+                <th>부서</th>
+                <th>성명</th>
+                <th>항목</th>
+                <th th:each="w : ${sheet.weeks}" th:text="${w.label}" class="week-col">2026-06-29 ~ 2026-07-03</th>
+                <th>비고</th>
+            </tr>
+            </thead>
+
+            <tbody th:if="${sheet.people.isEmpty()}">
+            <tr>
+                <td th:colspan="${sheet.totalColumns}" class="empty">등록된 주간보고가 없습니다.</td>
+            </tr>
+            </tbody>
+
+            <!-- 사람 1명 = tbody 1개 (항목 4행) -->
+            <tbody th:each="p : ${sheet.people}">
+            <tr th:each="row,iter : ${p.rows}">
+                <!-- 부서 / 성명: 4개 항목 행에 걸쳐 세로 병합 -->
+                <td th:if="${iter.index == 0}" rowspan="4" class="rowspan-cell">
+                    <a th:href="@{/reports/{id}/edit(id=${p.anchorReportId})}" th:text="${p.department}">개발팀</a>
+                </td>
+                <td th:if="${iter.index == 0}" rowspan="4" class="rowspan-cell">
+                    <a th:href="@{/reports/{id}/edit(id=${p.anchorReportId})}" th:text="${p.name}">배정빈</a>
+                </td>
+
+                <!-- 항목명 (색상 구분) -->
+                <td th:classappend="${row.cssClass}" class="item-label" th:text="${row.label}">금주 실적</td>
+
+                <!-- 주차별 내용 칸 -->
+                <td th:each="cell : ${row.cells}" th:classappend="${row.cssClass}" class="content-cell">
+                    <a th:if="${cell.reportId != null}" class="cell-link"
+                       th:href="@{/reports/{id}/edit(id=${cell.reportId})}" th:text="${cell.value}"></a>
+                </td>
+
+                <!-- 비고: 맨 오른쪽, 세로 병합 -->
+                <td th:if="${iter.index == 0}" rowspan="4" class="rowspan-cell">
+                    <a th:href="@{/reports/{id}/edit(id=${p.anchorReportId})}" th:text="${p.remarks}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
