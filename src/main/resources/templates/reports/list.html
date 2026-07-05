@@ -10,7 +10,10 @@
 <div class="container">
     <div class="header">
         <h1>주간보고 목록</h1>
-        <a class="btn btn-primary" th:href="@{/reports/new}">+ 새 보고 등록</a>
+        <div class="header-actions">
+            <a class="btn" th:href="@{/reports/sheet}">시트 보기</a>
+            <a class="btn btn-primary" th:href="@{/reports/new}">+ 새 보고 등록</a>
+        </div>
     </div>
 
     <table class="table">
