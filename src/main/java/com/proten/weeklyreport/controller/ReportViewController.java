@@ -4,6 +4,9 @@ import com.proten.weeklyreport.dto.WeeklyReportRequest;
 import com.proten.weeklyreport.dto.WeeklyReportResponse;
 import com.proten.weeklyreport.service.WeeklyReportService;
 import jakarta.validation.Valid;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,10 +39,14 @@ public class ReportViewController {
         return "reports/list";
     }
 
-    /** 등록 폼 화면 */
+    /** 등록 폼 화면 (보고 기간은 오늘이 속한 주의 월~일로 기본 세팅) */
     @GetMapping("/new")
     public String newForm(Model model) {
-        model.addAttribute("form", new WeeklyReportRequest());
+        WeeklyReportRequest form = new WeeklyReportRequest();
+        LocalDate today = LocalDate.now();
+        form.setPeriodStart(today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)));
+        form.setPeriodEnd(today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)));
+        model.addAttribute("form", form);
         prepareForm(model, "새 주간보고 등록", "/reports");
         return "reports/form";
     }
