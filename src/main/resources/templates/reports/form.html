@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">주간보고</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 th:text="${pageTitle}">주간보고 등록</h1>
+        <a class="btn" th:href="@{/reports}">← 목록으로</a>
+    </div>
+
+    <form class="form" method="post" th:action="@{${formAction}}" th:object="${form}">
+
+        <div class="row">
+            <div class="field">
+                <label for="department">부서 <span class="required">*</span></label>
+                <input type="text" id="department" th:field="*{department}" placeholder="예) 개발팀">
+                <p class="error" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></p>
+            </div>
+            <div class="field">
+                <label for="name">성명 <span class="required">*</span></label>
+                <input type="text" id="name" th:field="*{name}" placeholder="예) 배정빈">
+                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label for="periodStart">보고 시작일 <span class="required">*</span></label>
+                <input type="date" id="periodStart" th:field="*{periodStart}">
+                <p class="error" th:if="${#fields.hasErrors('periodStart')}" th:errors="*{periodStart}"></p>
+            </div>
+            <div class="field">
+                <label for="periodEnd">보고 종료일 <span class="required">*</span></label>
+                <input type="date" id="periodEnd" th:field="*{periodEnd}">
+                <p class="error" th:if="${#fields.hasErrors('periodEnd')}" th:errors="*{periodEnd}"></p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="accomplishments">금주 실적</label>
+            <textarea id="accomplishments" rows="4" th:field="*{accomplishments}"></textarea>
+        </div>
+
+        <div class="field">
+            <label for="nextWeekPlan">차주 계획</label>
+            <textarea id="nextWeekPlan" rows="4" th:field="*{nextWeekPlan}"></textarea>
+        </div>
+
+        <div class="field">
+            <label for="issues">이슈사항</label>
+            <textarea id="issues" rows="3" th:field="*{issues}"></textarea>
+        </div>
+
+        <div class="field">
+            <label for="project">프로젝트</label>
+            <textarea id="project" rows="2" th:field="*{project}"></textarea>
+        </div>
+
+        <div class="field">
+            <label for="remarks">비고</label>
+            <textarea id="remarks" rows="2" th:field="*{remarks}"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">저장</button>
+            <a class="btn" th:href="@{/reports}">취소</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

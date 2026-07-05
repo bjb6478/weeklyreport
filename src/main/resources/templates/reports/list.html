@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주간보고 목록</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>주간보고 목록</h1>
+        <a class="btn btn-primary" th:href="@{/reports/new}">+ 새 보고 등록</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>부서</th>
+            <th>성명</th>
+            <th>보고 기간</th>
+            <th>프로젝트</th>
+            <th>등록일</th>
+            <th class="actions-col">관리</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${reports.isEmpty()}">
+            <td colspan="6" class="empty">등록된 주간보고가 없습니다.</td>
+        </tr>
+        <tr th:each="report : ${reports}">
+            <td th:text="${report.department}">개발팀</td>
+            <td th:text="${report.name}">배정빈</td>
+            <td th:text="${report.periodStart} + ' ~ ' + ${report.periodEnd}">2026-06-29 ~ 2026-07-03</td>
+            <td th:text="${report.project}">weeklyreport</td>
+            <td th:text="${report.createdAt != null} ? ${report.createdAt.toLocalDate()} : ''">2026-07-05</td>
+            <td class="actions">
+                <a class="btn btn-sm" th:href="@{/reports/{id}/edit(id=${report.id})}">수정</a>
+                <form class="inline-form" method="post"
+                      th:action="@{/reports/{id}/delete(id=${report.id})}"
+                      onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                    <button type="submit" class="btn btn-sm btn-danger">삭제</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 등록/수정 요청 DTO.
@@ -32,10 +33,12 @@ public class WeeklyReportRequest {
 
     @Schema(description = "보고 시작일", example = "2026-06-29", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "보고 시작일은 필수입니다.")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate periodStart;
 
     @Schema(description = "보고 종료일", example = "2026-07-03", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "보고 종료일은 필수입니다.")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate periodEnd;
 
     // 아래 긴 텍스트 항목들은 선택 입력
