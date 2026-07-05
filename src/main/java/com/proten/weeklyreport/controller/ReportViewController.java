@@ -60,7 +60,8 @@ public class ReportViewController {
             return "reports/form";
         }
         service.create(form);
-        return "redirect:/reports";
+        // 등록 후에는 시트 보기 화면으로 이동
+        return "redirect:/reports/sheet";
     }
 
     /** 수정 폼 화면 (기존 값 채워서 보여줌) */
